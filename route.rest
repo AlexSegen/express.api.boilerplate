@@ -6,25 +6,24 @@ GET http://localhost:3000/subscribers/5db4ac75f30cf20bccab1463
 
 ###
 
+
 POST http://localhost:3000/subscribers
-Content-Type: : application/json
+content-type: application/json
 
 {
-    "name": "Alejandro",
+    "name": "Daniel",
     "subscribedToChannel":"Pixelagil"
 }
 
 ###
 
-PATCH http://localhost:3000/subscribers/5db4b1fdd0c2f22ec0abe293
-Content-Type: : application/json
+PATCH http://localhost:3000/subscribers/5db4b3a6d1ea4b20682fd0dc
+content-type: application/json
 
 {
-    "name": "Alejandro Vivas",
-    //"subscribedToChannel":"Pixelagil"
+    "name": "Daniel Test",
+    "subscribedToChannel":"Pixelagil"
 }
-
-
 
 ###
 
