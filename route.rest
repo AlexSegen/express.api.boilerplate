@@ -1,0 +1,31 @@
+GET http://localhost:3000/subscribers
+
+### 
+
+GET http://localhost:3000/subscribers/5db4ac75f30cf20bccab1463
+
+###
+
+POST http://localhost:3000/subscribers
+Content-Type: : application/json
+
+{
+    "name": "Alejandro",
+    "subscribedToChannel":"Pixelagil"
+}
+
+###
+
+PATCH http://localhost:3000/subscribers/5db4b1fdd0c2f22ec0abe293
+Content-Type: : application/json
+
+{
+    "name": "Alejandro Vivas",
+    //"subscribedToChannel":"Pixelagil"
+}
+
+
+
+###
+
+DELETE http://localhost:3000/subscribers/5db4ac75f30cf20bccab1463
