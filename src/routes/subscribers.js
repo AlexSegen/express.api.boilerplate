@@ -46,7 +46,7 @@ router.patch("/:id", getSubscriber, async (req, res) => {
 
     try {
         const updatedSubscriber = await res.subscriber.save()
-        res.json(updatedSubscriber)
+        res.status(200).json(updatedSubscriber)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -57,7 +57,7 @@ router.delete("/:id", getSubscriber, async (req, res) => {
 
     try {
         await res.subscriber.remove()
-        res.json({ message: "Subscriber deleted" });
+        res.status(200).json({ message: "Subscriber deleted" });
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
