@@ -2,12 +2,14 @@ const express = require("express");
 const app = express();
 app.use(express.json())
 
-const db = require("./src/services/mongoose");
 
+//Database Connection
+const db = require("./src/services/mongoose");
 db();
 
-const subscribersRouter = require("./src/routes/subscribers");
+//Routes
+const apiRouter = require('./src/routes')
+app.use('/api', apiRouter);
 
-app.use("/subscribers", subscribersRouter)
-
+//App start
 app.listen(3000, () => console.log("Server has started"));

@@ -2,70 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const Subscriber = require("../models/subscriber")
+const Controller = require("../controllers/subscribers")
 
+router.get("/", Controller.getAll);
 
-router.get("/", async (req, res) => {
+router.get("/:id", getSubscriber, Controller.getOne);
 
-    try {
-        const subscribers = await Subscriber.find();
-        res.status(200).json(subscribers)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-});
+router.post("/", Controller.saveItem);
 
-router.get("/:id", getSubscriber, (req, res) => {
-    res.send(res.subscriber)
-});
+router.patch("/:id", getSubscriber, Controller.updateItem);
 
-router.post("/", async (req, res) => {
+router.delete("/:id", getSubscriber, Controller.removeItem);
 
-    const subscriber = new Subscriber({
-        name: req.body.name,
-        subscribedToChannel: req.body.subscribedToChannel
-    });
-
-    try {
-        const newSubscriber = await subscriber.save()
-        res.status(201).json(newSubscriber)
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-
-});
-
-router.patch("/:id", getSubscriber, async (req, res) => {
-
-    if (req.body.name != null) {
-        res.subscriber.name = req.body.name
-    }
-
-    if (req.body.subscribedToChannel != null) {
-        res.subscriber.subscribedToChannel = req.body.subscribedToChannel
-    }
-
-    try {
-        const updatedSubscriber = await res.subscriber.save()
-        res.status(200).json(updatedSubscriber)
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-
-});
-
-router.delete("/:id", getSubscriber, async (req, res) => {
-
-    try {
-        await res.subscriber.remove()
-        res.status(200).json({ message: "Subscriber deleted" });
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-
-});
-
-
-//Middleware
 async function getSubscriber(req, res, next) {
     let subscriber;
     try {
@@ -80,7 +28,5 @@ async function getSubscriber(req, res, next) {
     res.subscriber = subscriber
     next();
 }
-
-
 
 module.exports = router;
