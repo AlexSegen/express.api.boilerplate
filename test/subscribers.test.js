@@ -1,5 +1,5 @@
 const axios = require("axios");
-const apiResource = "http://localhost:3000/subscribers";
+const apiResource = "http://localhost:3000/api/subscribers";
 
 let itemID = "";
 
