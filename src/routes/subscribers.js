@@ -4,15 +4,18 @@ const router = express.Router();
 const Subscriber = require("../models/subscriber")
 const Controller = require("../controllers/subscribers")
 
+
+const auth = require("../services/verifytoken")
+
 router.get("/", Controller.getAll);
 
 router.get("/:id", getSubscriber, Controller.getOne);
 
-router.post("/", Controller.saveItem);
+router.post("/", auth, Controller.saveItem);
 
-router.patch("/:id", getSubscriber, Controller.updateItem);
+router.patch("/:id", auth, getSubscriber, Controller.updateItem);
 
-router.delete("/:id", getSubscriber, Controller.removeItem);
+router.delete("/:id", auth, getSubscriber, Controller.removeItem);
 
 async function getSubscriber(req, res, next) {
     let subscriber;
