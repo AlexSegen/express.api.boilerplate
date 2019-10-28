@@ -1,86 +1,40 @@
-const axios = require("axios");
-const apiResource = "http://localhost:3000/api/subscribers";
+const api = require("./api");
 
 let itemID = "";
 
-const customRequest = options => {
-    return axios(options);
-}
-
-const getItems = () => {
-    let options = {
-        method: 'get',
-        url: apiResource
-    }
-    return customRequest(options);
-}
-
-const getSingleItem = () => {
-    let options = {
-        method: 'get',
-        url: apiResource + "/" + itemID
-    }
-    return customRequest(options);
-}
-
-const saveItem = () => {
-    let data = {
-        name: "testuser",
-        subscribedToChannel: "testchannel"
-    }
-    let options = {
-        method: 'post',
-        url: apiResource,
-        data: data
-    }
-    return customRequest(options);
-}
-
-const updateItem = () => {
-    let data = {
-        name: "testuser updated"
-    }
-    let options = {
-        method: 'patch',
-        url: apiResource + "/" + itemID,
-        data: data
-    }
-    return customRequest(options);
-}
-
-const deleteItem = () => {
-    let options = {
-        method: 'delete',
-        url: apiResource + "/" + itemID
-    }
-    return customRequest(options);
-}
+const resourceName = "subscribers"
 
 test("Get all Items", async () => {
-    let response = await getItems();
+    let response = await api.getItems(resourceName);
     expect(response.status).toBe(200)
 });
 
 test("Save Item", async () => {
-    let response = await saveItem();
+    let payload = {
+        name: "testuser",
+        subscribedToChannel: "testchannel"
+    }
+    let response = await api.saveItem(resourceName, payload);
     let data = await response.data;
     itemID = data._id;
     expect(response.status).toBe(201)
 });
 
 test("Get Single Item", async () => {
-    let response = await getSingleItem();
+    let response = await api.getSingleItem(resourceName, itemID);
     expect(response.status).toBe(200)
 });
 
 test("Update Item", async () => {
-    let response = await updateItem();
+    let payload = {
+        name: "testuser updated",
+    }
+    let response = await api.updateItem(resourceName, itemID, payload);
     let data = await response.data;
     expect(data.name).toBe("testuser updated")
 });
 
 test("Delete Item", async () => {
-    let response = await deleteItem();
+    let response = await api.deleteItem(resourceName, itemID);
     expect(response.status).toBe(200)
 });
-
