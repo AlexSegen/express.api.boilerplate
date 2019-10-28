@@ -6,7 +6,11 @@ const $http = axios.create({
 })
 
 exports.customRequest = async (options) => {
-    return axios(options)
+    return $http(options)
+}
+
+exports.login = async (resourceName, payload) => {
+    return $http.post(resourceName, payload);
 }
 
 exports.getItems = async (resourceName) => {
