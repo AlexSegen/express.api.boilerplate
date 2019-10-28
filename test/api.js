@@ -5,6 +5,10 @@ const $http = axios.create({
     timeout: 3000
 })
 
+exports.customRequest = async (options) => {
+    return axios(options)
+}
+
 exports.getItems = async (resourceName) => {
     return $http.get(resourceName);
 }
